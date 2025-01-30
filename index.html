@@ -714,20 +714,20 @@ textarea.input {
         <p>Braces</p>
       </div>
     </div>
-  
+    
     <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal-box">
         <i class="fas fa-times close-btn" onclick="closeModal()"></i>
         <h2 id="treatmentTitle"></h2>
         <div class="language-options">
-          <button class="language-btn btn-hindi">
+          <button class="language-btn btn-hindi" id="hindi-btn">
             <i class="fas fa-tooth"></i> हिंदी
           </button>
-          <button class="language-btn btn-english">
+          <button class="language-btn btn-english" id="english-btn">
             <i class="fas fa-tooth"></i> English
           </button>
-          <button class="language-btn btn-marathi">
+          <button class="language-btn btn-marathi" id="marathi-btn">
             <i class="fas fa-tooth"></i> मराठी
           </button>
         </div>
@@ -860,19 +860,47 @@ textarea.input {
   
     <script>
         const modalOverlay = document.getElementById("modalOverlay");
-    const treatmentTitle = document.getElementById("treatmentTitle");
+  const treatmentTitle = document.getElementById("treatmentTitle");
 
-    // Open the modal
-    function openModal(treatmentName) {
-      treatmentTitle.textContent = treatmentName;
-      modalOverlay.style.display = "flex";
+  const hindiButton = document.getElementById("hindi-btn");
+  const englishButton = document.getElementById("english-btn");
+  const marathiButton = document.getElementById("marathi-btn");
+
+  // Open the modal and set language links dynamically
+  function openModal(treatmentName) {
+    treatmentTitle.textContent = treatmentName;
+
+    // Define language page links
+    let hindiPage = "";
+    let englishPage = "";
+    let marathiPage = "";
+
+    if (treatmentName === "Chipped Teeth") {
+      hindiPage = "PA.html";
+      englishPage = "chipped-teeth-english.html";
+      marathiPage = "chipped-teeth-marathi.html";
+    } else if (treatmentName === "Root Canal") {
+      hindiPage = "m.html";
+      englishPage = "root-canal-english.html";
+      marathiPage = "root-canal-marathi.html";
+    } else if (treatmentName === "Braces") {
+      hindiPage = "braces-hindi.html";
+      englishPage = "braces-english.html";
+      marathiPage = "braces-marathi.html";
     }
 
-    // Close the modal
-    function closeModal() {
-      modalOverlay.style.display = "none";
-    }
+    // Update button links
+    hindiButton.setAttribute("onclick", `window.location.href='${hindiPage}'`);
+    englishButton.setAttribute("onclick", `window.location.href='${englishPage}'`);
+    marathiButton.setAttribute("onclick", `window.location.href='${marathiPage}'`);
 
+    modalOverlay.style.display = "flex";
+  }
+
+  // Close the modal
+  function closeModal() {
+    modalOverlay.style.display = "none";
+  }
     
         function toggleVideo(faq) {
             // Get the video container inside the clicked FAQ
